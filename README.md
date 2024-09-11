@@ -1,5 +1,5 @@
 # Seven Segment Display
-## Introductory Arduino Project by Nicholas Cutler
+#### Introductory Arduino Project by Nicholas Cutler
 
 
 ## Description
