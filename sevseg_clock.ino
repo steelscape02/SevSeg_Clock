@@ -18,7 +18,7 @@ byte packetBuffer[PACKET_SIZE];
 
 WiFiUDP Udp;
 
-SevSeg sevseg; //Initiate a seven segment controller object
+SevSeg sevseg; //Initiate
 
 
 void setup() {
@@ -40,8 +40,7 @@ void setup() {
     byte digitPins[] = {0, 1, 2, 3};
     byte segmentPins[] = {4, 5, 6, 7, 8, 9, 10, 11};
     bool resistorsOnSegments = 0; 
-    // variable above indicates that 4 resistors were placed on the digit pins.
-    // set variable to 1 if you want to use 8 resistors on the segment pins.
+    
     sevseg.begin(COMMON_CATHODE, numDigits, digitPins, segmentPins, resistorsOnSegments,true,false,false);
     sevseg.setBrightness(80);
 }
@@ -59,7 +58,7 @@ void updateDisplay(int time){
   int start = millis();
   int end = millis();
   while((end - start) < 5000){
-    sevseg.refreshDisplay(); // Must run repeatedly
+    sevseg.refreshDisplay();
     end = millis();
   }
   sevseg.setNumber(time, 2);
@@ -99,21 +98,16 @@ int getTime(){
 unsigned long sendNTPpacket(IPAddress& address)
 {
   memset(packetBuffer, 0, PACKET_SIZE);
-  // Initialize values needed to form NTP request
-  // (see URL above for details on the packets)
-  packetBuffer[0] = 0b11100011;   // LI, Version, Mode
-  packetBuffer[1] = 0;     // Stratum, or type of clock
-  packetBuffer[2] = 6;     // Polling Interval
-  packetBuffer[3] = 0xEC;  // Peer Clock Precision
-  // 8 bytes of zero for Root Delay & Root Dispersion
+  packetBuffer[0] = 0b11100011;  
+  packetBuffer[1] = 0;     
+  packetBuffer[2] = 6;     
+  packetBuffer[3] = 0xEC;  
   packetBuffer[12]  = 49;
   packetBuffer[13]  = 0x4E;
   packetBuffer[14]  = 49;
   packetBuffer[15]  = 52;
 
-  // all NTP fields have been given values, now
-  // you can send a packet requesting a timestamp:
-  Udp.beginPacket(address, 123); //NTP requests are to port 123
+  Udp.beginPacket(address, 123); 
   Udp.write(packetBuffer, PACKET_SIZE);
   Udp.endPacket();
 }
